@@ -39,10 +39,17 @@
   - Western 风格电影在 1974 - 1998 年利润稳定在 2亿多，但也逐渐下降，之后也没有再超过 2 亿
   - 该图体现早期利润较高的几个风格电影，利润都在不断减少，体现的趋势是电影市场的竞争越来越大
 
+    ![屏幕快照 2018-03-07 下午11.43.56](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午11.43.56.png)
+  - 如图《Q1-个风格电影数》，可发现电影数增长最多的前三名分别是 Drama、Thriller 和 Comedy 风格
+
 
 - **问题 2：** Universal Pictures 和 Paramount Pictures 之间的对比情况如何？
 
   - 在线面板链接为[Tableau Public Q2](https://public.tableau.com/profile/.10216883#!/vizhome/P3-Lab/Q2)
+
+    ![屏幕快照 2018-03-07 下午11.54.46](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午11.54.46.png)
+
+  - 如上图《Q2-流行度》和《Q2-评分》，可发现两个公司的电影评价流行度、平均评分差不多，Paramount Pictures 的评价略高于 Universal Pictures 一点
 
   ![屏幕快照 2018-03-07 下午10.03.56](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午10.03.56.png)
 

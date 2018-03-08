@@ -66,7 +66,7 @@
 
   - 在线面板链接为[Tableau Public Q3](https://public.tableau.com/profile/.10216883#!/vizhome/P3-Lab/Q3)
 
-  ![屏幕快照 2018-03-07 下午10.04.14](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午10.04.14.png)
+  ![屏幕快照 2018-03-07 下午10.04.14](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-08 下午12.53.08.png)
 
   - 如图《Q3-各风格改编原创对比评价所示》，可以发现大部分风格的电影都是改编电影评价（流行度、评分）均比原创电影高
   - 少数风格是原创电影的流行度高、改编电影评分高
@@ -78,15 +78,46 @@
 
 - **问题 4：**根据电影的评分和流行程度推荐一些值得参考学习的电影？
   - 在线面板链接为[Tableau Public Q4](https://public.tableau.com/profile/.10216883#!/vizhome/P3-Lab/Q4) 和 [Tableau Public Q4 Story](https://public.tableau.com/views/P3-Lab/Q4Story?:embed=y&:display_count=yes&publish=yes)
-  ![屏幕快照 2018-03-07 下午10.04.56](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午10.04.56.png)
-  - 如图《Q4-最高电影评价》所示，综合流行度和评分作为评价指标，发现《Jurassic World》、《Mad Max: Fury Road》和《Interstellar》是综合评价最高的三部电影
-  ![屏幕快照 2018-03-07 下午10.35.55](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午10.35.55.png)
-  - 如上图所示，综合流行度和评分作为评价指标，发现 Animation、War、Crime 是综合评价最高的三种电影风格
-  ![屏幕快照 2018-03-07 下午10.05.34](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午10.05.34.png)
+    ![屏幕快照 2018-03-07 下午10.04.56](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午10.04.56.png)
+
+  - 如图《Q4-最高电影评价》所示，综合流行度和评分作为评价指标，即在单项指标值高于中位数的范围（右上角）中探索，发现《Jurassic World》、《Mad Max: Fury Road》和《Interstellar》是综合评价最高的三部电影
+
+  - 《Jurassic World》的流行度为 32.99，评分为 6.50，在三个电影中流行度最高，但评分低于其它两部电影
+
+  - 《Mad Max: Fury Road》的流行度为 28.42，评分为7.10，在三个电影中综合评价较好（较均衡）
+
+  - 《Interstellar》的流行度为 24.95，评分为 8.00，在三个电影中评分最高，但流行度低于其它两部电影
+
+    ![屏幕快照 2018-03-07 下午10.35.55](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-08 下午12.54.23.png)
+
+  - 如上图所示，综合流行度和评分作为评价指标，过滤时设置流行度、评分大于中位数，发现 Animation、War、Crime 是综合评价最高的三种电影风格
+
+  - Animation 的评分为 6.40，流行度为 0.85，综合评价最高，单项指标也分别高于其它两个风格
+
+  - War 的评分为 6.30，流行度为 0.73
+
+  - Crime 的评分为 6.12，流行度为 0.75
+
+    ![屏幕快照 2018-03-07 下午10.05.34](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-08 下午12.54.40.png)
+
   - 如上图所示，在综合评价最高的三种电影风格中，进一步找出了综合评价最高的五部电影《Furious 7》、《Big Hero 6》、《The Dark Knight》、《The imitation Game》和《Pulp Fiction》
-  ![屏幕快照 2018-03-07 下午10.05.46](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午10.05.46.png)
+
+  - 《Furious 7》的流行度为 9.33，评分为 7.30，在五个电影中流行度最高，但评分低于其它四部电影
+
+  - 《Big Hero 6》的流行度为 8.70，评分为 7.80
+
+  - 《The Dark Knight》的流行度为 8.47，评分为 8.10，在五部电影中综合评价较好
+
+  - 《The Imitation Game》的流行度为 8.11，评分为8.00
+
+  - 《Pulp Fiction》的流行度为 8.10，评分为 8.10，在五部电影中评分最高，但流行度低于其它四部电影
+
+    ![屏幕快照 2018-03-07 下午10.05.46](/Users/qiuhuadong/Desktop/屏幕快照 2018-03-07 下午10.05.46.png)
+
   - 如上图所示，将找到的 8 部优秀电影进行利润分析，发现每一部电影利润都超过 2 亿，可认为都是高利润的电影
+
   - 不管是在所有风格中找到的前 3 名电影，还是在优秀风格中找到的前 5 名电影，在利润上都有相同数量级的电影
+
   - 该数据体现了即使不是评价最好的电影，在利润上也有机会达到评价最好的电影的水平，而以上电影则都值得学习参考
 
 

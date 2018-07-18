@@ -14,7 +14,7 @@
 # [2 Gaussian Jordan 消元法](#2-Gaussian-Jordan-消元法)  
 # [3  线性回归](#3-线性回归)  
 
-# In[305]:
+# In[54]:
 
 
 # 任意选一个你喜欢的整数，这能帮你得到稳定的结果
@@ -25,7 +25,7 @@ seed = 5
 # 
 # ## 1.1 创建一个 4*4 的单位矩阵
 
-# In[306]:
+# In[55]:
 
 
 # 这个项目设计来帮你熟悉 python list 和线性代数
@@ -55,7 +55,7 @@ I = [[1,0,0,0],
 
 # ## 1.2 返回矩阵的行数和列数
 
-# In[307]:
+# In[56]:
 
 
 # TODO 返回矩阵的行数和列数
@@ -68,7 +68,7 @@ def shape(M):
     return rows,cols
 
 
-# In[308]:
+# In[57]:
 
 
 # 运行以下代码测试你的 shape 函数
@@ -77,7 +77,7 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 
 # ## 1.3 每个元素四舍五入到特定小数数位
 
-# In[309]:
+# In[58]:
 
 
 # TODO 每个元素四舍五入到特定小数数位
@@ -89,7 +89,7 @@ def matxRound(M, decPts=4):
     pass
 
 
-# In[310]:
+# In[59]:
 
 
 # 运行以下代码测试你的 matxRound 函数
@@ -98,27 +98,15 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 
 # ## 1.4 计算矩阵的转置
 
-# In[311]:
+# In[60]:
 
 
 # TODO 计算矩阵的转置
 def transpose(M):
-    rows = len(M)
-    if rows != 0:
-        cols = len(M[0])
-    else:
-        cols = 0
-        
-    M_ = [[0 for col in range(rows)] for row in range(cols)]
-    
-    for col in range(cols):
-        for row in range(rows):
-            M_[col][row] = M[row][col]
-            
-    return M_
+    return [list(col) for col in zip(*M)]
 
 
-# In[312]:
+# In[61]:
 
 
 # 运行以下代码测试你的 transpose 函数
@@ -127,7 +115,7 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 
 # ## 1.5 计算矩阵乘法 AB
 
-# In[313]:
+# In[62]:
 
 
 def matxInnerMultipy(col,row):
@@ -159,7 +147,7 @@ def matxMultiply(A, B):
     return M
 
 
-# In[314]:
+# In[63]:
 
 
 # 运行以下代码测试你的 matxMultiply 函数
@@ -193,7 +181,7 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 #     ...    & ... & ... & ...& ...\\
 #     a_{n1}    & a_{n2} & ... & a_{nn} & b_{n} \end{bmatrix}$
 
-# In[315]:
+# In[64]:
 
 
 # TODO 构造增广矩阵，假设A，b行数相同
@@ -203,24 +191,10 @@ def augmentMatrix(A, b):
     则 B 必须 n 行 1 列
     返回 Ab 为 n 行 m+1 列
     """
-    n = len(A)
-    m = len(A[0])
-    if len(b) != n or len(b[0]) != 1:
-        raise ValueError
-    
-    Ab = [[0 for col in range(m+1)] for row in range(n)]
-    
-    for row in range(len(Ab)):
-        for col in range(len(Ab[row])):
-            if col != m:
-                Ab[row][col] = A[row][col]
-            else:
-                Ab[row][col] = b[row][0]
-    
-    return Ab
+    return [ra + rb for ra, rb in zip(A, b)]
 
 
-# In[316]:
+# In[65]:
 
 
 # 运行以下代码测试你的 augmentMatrix 函数
@@ -232,26 +206,24 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 # - 把某行乘以一个非零常数
 # - 把某行加上另一行的若干倍：
 
-# In[317]:
+# In[66]:
 
 
 # TODO r1 <---> r2
 # 直接修改参数矩阵，无返回值
 def swapRows(M, r1, r2):
-    tmp = M[r1]
-    M[r1] = M[r2]
-    M[r2] = tmp
+    M[r1], M[r2] = M[r2], M[r1]
     pass
 
 
-# In[318]:
+# In[67]:
 
 
 # 运行以下代码测试你的 swapRows 函数
 get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_swapRows')
 
 
-# In[319]:
+# In[68]:
 
 
 # TODO r1 <--- r1 * scale
@@ -260,30 +232,28 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 def scaleRow(M, r, scale):
     if scale == 0:
         raise ValueError
-    for col in range(len(M[r])):
-        M[r][col] *= scale
+    M[r] = [row * scale for row in M[r]]
     pass
 
 
-# In[320]:
+# In[69]:
 
 
 # 运行以下代码测试你的 scaleRow 函数
 get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_scaleRow')
 
 
-# In[321]:
+# In[70]:
 
 
 # TODO r1 <--- r1 + r2*scale
 # 直接修改参数矩阵，无返回值
 def addScaledRow(M, r1, r2, scale):
-    for col in range(len(M[0])):
-        M[r1][col] = M[r1][col] + M[r2][col] * scale
+    M[r1] = [row1 + row2 * scale for row1, row2 in zip(M[r1], M[r2])]
     pass
 
 
-# In[322]:
+# In[71]:
 
 
 # 运行以下代码测试你的 addScaledRow 函数
@@ -363,7 +333,7 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 
 # #### 以下开始你的尝试吧!
 
-# In[323]:
+# In[72]:
 
 
 # 不要修改这里！
@@ -395,7 +365,7 @@ printInMatrixFormat(Ab,padding=3,truncating=0)
 #     
 # $...$
 
-# In[324]:
+# In[73]:
 
 
 # 不要修改这里！
@@ -428,85 +398,57 @@ printInMatrixFormat(Ab,padding=3,truncating=0)
 
 # ### 2.3.3 实现 Gaussian Jordan 消元法
 
-# In[326]:
+# In[250]:
 
 
 # TODO 实现 Gaussain Jordan 方法求解 Ax = b
 
-from fractions import Fraction
-
-
 class Matrix(object):
 
-    def __init__(self, array_2d, row_first = True, dimension = 2):
-        self.array = array_2d
-        self.row_first = row_first
-        self.dimension = dimension
+    def __init__(self, M):
+        self.M = M
 
     def __str__(self):
         result = "Matrix:\n"
-        for row in self.array:
+        for row in self.M:
             result += str(row) + "\n"
         result += "\n"
         return result
 
-    # 返回矩阵的行数和列数
-    def shape(self):
-        matrix = self.array
-        rows = len(matrix)
-        if rows != 0:
-            cols = len(matrix[0])
-        else:
-            cols = 0
-        return rows, cols
-
     def get_row_counts(self):
-        return self.shape()[0]
+        return len(self.M)
 
     def get_col_counts(self):
-        return self.shape()[1]
+        return len(self.M[0])
 
     # 每个元素四舍五入到特定小数数位
-    def matxRound(self, decPts=4):
-        matrix = self.array
-        for row in range(len(matrix)):
-            for col in range(len(matrix[row])):
-                matrix[row][col] = round(matrix[row][col], decPts)
+    def round(self, decPts):
+        for row in range(len(self.M)):
+            for col in range(len(self.M[row])):
+                self.M[row][col] = round(self.M[row][col], decPts)
         return self
 
     # 计算矩阵的转置
-    def transpose(self):
-        matrix = self.array
-        rows = len(matrix)
-        if rows != 0:
-            cols = len(matrix[0])
-        else:
-            cols = 0
+    def gen_transpose(self):
+        M_T = [list(col) for col in zip(*self.M)]
+        return Matrix(M_T)
 
-        matrix_transpose = [[0 for col in range(rows)] for row in range(cols)]
-
-        for col in range(cols):
-            for row in range(rows):
-                matrix_transpose[col][row] = matrix[row][col]
-
-        return Matrix(matrix_transpose)
-
-    def matxInnerMultipy(self, col, row):
+    def dot_product(self, col, row):
         sum = 0
         for i in range(len(col)):
             sum += col[i] * row[i]
         return sum
 
     # 计算矩阵乘法 AB，如果无法相乘则raise ValueError
-    def matxMultiply(self, another):
+    def gen_multiply(self, another):
         """
         若 A 为 n 行 m 列
         则 B 必须 m 行 p 列
         返回 M 为 n 行 p 列，每一元素为 A 的第 n 行行向量点乘 B 的第 p 列列向量
         """
-        A = self.array
-        B = another.array
-        B_T = another.transpose().array
+        A = self.M
+        B = another.M
+        B_T = another.gen_transpose().M
         n = len(A)
         mA = len(A[0])
         mB = len(B)
@@ -521,124 +463,73 @@ class Matrix(object):
 
         for row_n in range(len(M)):
             for col_p in range(len(M[row_n])):
-                M[row_n][col_p] = self.matxInnerMultipy(A[row_n], B_T[col_p])
+                M[row_n][col_p] = self.dot_product(A[row_n], B_T[col_p])
 
         return Matrix(M)
 
     # 构造增广矩阵，假设A，b行数相同
-    def augmentMatrix(self, col):
+    def gen_augment(self, b):
         """
         若 A 为 n 行 m 列，二维数组
         则 b 必须 n 行 1 列，二维数组
         返回 Ab 为 n 行 m+1 列
         """
-        A = self.array
-        b = col
-        n = len(A)
-        m = len(A[0])
-        if len(b) != n or len(b[0]) != 1:
-            raise ValueError
-
-        Ab = [[0 for col in range(m + 1)] for row in range(n)]
-
-        for row in range(len(Ab)):
-            for col in range(len(Ab[row])):
-                if col != m:
-                    Ab[row][col] = A[row][col]
-                else:
-                    Ab[row][col] = b[row][0]
-
+        A = self.M
+        Ab = [ra + rb for ra, rb in zip(A, b)]
         return Matrix(Ab)
 
     # r1 <---> r2
     # 直接修改参数矩阵，无返回值
     def swapRows(self, r1, r2):
-        matrix = self.array
-        tmp = matrix[r1]
-        matrix[r1] = matrix[r2]
-        matrix[r2] = tmp
+        self.M[r1], self.M[r2] = self.M[r2], self.M[r1]
         pass
 
     # r1 <--- r1 * scale
     # scale为0是非法输入，要求 raise ValueError
     # 直接修改参数矩阵，无返回值
     def scaleRow(self, r, scale):
-        matrix = self.array
         if scale == 0:
             raise ValueError
-        for col in range(len(matrix[r])):
-            matrix[r][col] *= scale
+        self.M[r] = [row * scale for row in self.M[r]]
         pass
 
     # r1 <--- r1 + r2*scale
     # 直接修改参数矩阵，无返回值
     def addScaledRow(self, r1, r2, scale):
-        matrix = self.array
-        for col in range(len(matrix[0])):
-            matrix[r1][col] = matrix[r1][col] + matrix[r2][col] * scale
+        self.M[r1] = [row1 + row2 * scale for row1, row2 in zip(self.M[r1], self.M[r2])]
         pass
 
     def gaussian_phase_find_max(self, n):
-        max = 0
-        row_max = n
+        max_num = 0
+        max_row_idx = n
         for row_idx in range(self.get_row_counts()):
             if row_idx < n:
                 continue
-            if abs(max) < abs(self.array[row_idx][n]):
-                max = self.array[row_idx][n]
-                row_max = row_idx
-        return max, row_max
-
-    def gaussian_phase_to_one(self, n, max):
-        self.scaleRow(n,  Fraction(1, max))
-        pass
+            if abs(max_num) < abs(self.M[row_idx][n]):
+                max_num = self.M[row_idx][n]
+                max_row_idx = row_idx
+        return max_num, max_row_idx
 
     def gaussian_phase_to_zero(self, n):
         for row_idx in range(self.get_row_counts()):
             if row_idx == n:
                 continue
-            self.addScaledRow(row_idx, n, -self.array[row_idx][n])
+            self.addScaledRow(row_idx, n, -self.M[row_idx][n])
         pass
 
-    def gaussian_phase_proccess_col(self, n):
-        max, row_max = self.gaussian_phase_find_max(n)
-        if max == 0:
-            raise Exception('这是奇异矩阵')
-        self.swapRows(n, row_max)
-        self.gaussian_phase_to_one(n, max)
-        self.gaussian_phase_to_zero(n)
-        pass
+    def gaussian(self, dePts, epsilon):
+        for col_idx in range(self.get_col_counts() - 1):
+            max_num, row_max = self.gaussian_phase_find_max(col_idx)
+            if abs(max_num) < epsilon:
+                return None
+            self.swapRows(col_idx, row_max)
+            self.scaleRow(col_idx, 1/max_num)
+            self.gaussian_phase_to_zero(col_idx)
+        self.round(dePts)
+        return self.get_x()
 
-    def gaussian(self):
-        try:
-            for col_idx in range(self.get_col_counts() - 1):
-                self.gaussian_phase_proccess_col(col_idx)
-        except Exception as e:
-            raise e
-        return self
-
-    def toDecimal(self):
-        matrix = self.array
-        for row in range(self.get_row_counts()):
-            for col in range(self.get_col_counts()):
-                matrix[row][col] = matrix[row][col].numerator/matrix[row][col].denominator
-        return self
-
-    def getX(self):
-        matrix = self.array
-        result = [[0] for i in range(self.get_row_counts())]
-        for row in range(self.get_row_counts()):
-            result[row][0] = matrix[row][self.get_col_counts() - 1]
-        return result
-    
-        
-    def toFraction(self):
-        matrix = self.array
-        for row in range(self.get_row_counts()):
-            for col in range(self.get_col_counts()):
-                matrix[row][col] = Fraction(matrix[row][col])
-        return self
-
+    def get_x(self):
+        return [[row[-1]] for row in self.M]
 
 """ Gaussian Jordan 方法求解 Ax = b.
     参数
@@ -651,17 +542,11 @@ class Matrix(object):
     返回None，如果 A 为奇异矩阵
 """
 def gj_Solve(A, b, decPts=4, epsilon=1.0e-16):
-    Ab = Matrix(A).augmentMatrix(b)
-    try:
-        Ab.gaussian()
-    except Exception as e:
-        return None
-    Ab.toDecimal()
-    Ab.matxRound(decPts)
-    return Ab.getX()
+    Ab = Matrix(A).gen_augment(b)
+    return Ab.gaussian(decPts, epsilon)
 
 
-# In[327]:
+# In[251]:
 
 
 # 运行以下代码测试你的 gj_Solve 函数
@@ -698,7 +583,7 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 
 # ## 3.1 随机生成样本点
 
-# In[328]:
+# In[252]:
 
 
 # 不要修改这里！
@@ -713,7 +598,7 @@ vs_scatter_2d(X, Y)
 # 
 # ### 3.2.1 猜测一条直线
 
-# In[329]:
+# In[239]:
 
 
 #TODO 请选择最适合的直线 y = mx + b
@@ -731,17 +616,17 @@ vs_scatter_2d(X, Y, m1, b1)
 # MSE = \frac{1}{n}\sum_{i=1}^{n}{(y_i - mx_i - b)^2}
 # $$
 
-# In[330]:
+# In[253]:
 
 
 # TODO 实现以下函数并输出所选直线的MSE
 def calculateMSE2D(X,Y,m,b):
-    sum = 0
+    total = 0
     for i in range(len(X)):
         x = X[i]
         y = Y[i]
-        sum += (y - m * x - b)**2
-    return sum / len(X)
+        total += (y - m * x - b)**2
+    return total / len(X)
 
 # TODO 检查这里的结果, 如果你上面猜测的直线准确, 这里的输出会在1.5以内
 print(calculateMSE2D(X,Y,m1,b1))
@@ -927,7 +812,7 @@ print(calculateMSE2D(X,Y,m1,b1))
 # 
 # 在3.3 中，我们知道线性回归问题等价于求解 $X^TXh = X^TY$ (如果你选择不做3.3，就勇敢的相信吧，哈哈)
 
-# In[336]:
+# In[254]:
 
 
 # TODO 实现线性回归
@@ -942,30 +827,19 @@ h->x
 [b]
 ]
 '''
-def formatArray2d(X, Y):
-    resultX = [[0,0] for _ in range(len(X))]
-    resultY = [[0] for _ in range(len(Y))]
-    
-    for i in range(len(X)):
-        resultX[i][0] = X[i]
-        resultX[i][1] = 1
-    for i in range(len(Y)):
-        resultY[i][0] = Y[i]
-    
-    return resultX,resultY
-
 def linearRegression2D(x,y):
-    x,y = formatArray2d(x, y)
+    x = [[row, 1] for row in x]
+    y = [[row] for row in y]
     X = Matrix(x)
-    X_T = X.transpose()
+    X_T = X.gen_transpose()
     Y = Matrix(y)
-    A = X_T.matxMultiply(X)
-    b = X_T.matxMultiply(Y)
-    h = gj_Solve(A.toFraction().array,b.toFraction().array)
+    A = X_T.gen_multiply(X)
+    b = X_T.gen_multiply(Y)
+    h = gj_Solve(A.M,b.M)
     return h[0][0],h[1][0]
 
 
-# In[337]:
+# In[255]:
 
 
 # 请不要修改下面的代码
@@ -978,7 +852,7 @@ print(m2,b2)
 # 你求得的回归结果是什么？
 # 请使用运行以下代码将它画出来。
 
-# In[338]:
+# In[256]:
 
 
 ## 请不要修改下面的代码
@@ -990,7 +864,7 @@ print(calculateMSE2D(X,Y,m2,b2))
 # 如果你的高斯约当消元法通过了单元测试, 那么它将能够解决多维的回归问题  
 # 你将会在更高维度考验你的线性回归实现
 
-# In[339]:
+# In[246]:
 
 
 # 生成三维的数据点
@@ -1000,37 +874,26 @@ vs_scatter_3d(X_3d, Y_3d)
 
 # 你的线性回归是否能够对付三维的情况?
 
-# In[340]:
+# In[257]:
 
 
 def linearRegression(x,y):
-    x,y = formatArray(x, y)
     X = Matrix(x)
-    X_T = X.transpose()
+    X_T = X.gen_transpose()
     Y = Matrix(y)
-    A = X_T.matxMultiply(X)
-    b = X_T.matxMultiply(Y)
-    h = gj_Solve(A.toFraction().array,b.toFraction().array)
+    A = X_T.gen_multiply(X)
+    b = X_T.gen_multiply(Y)
+    h = gj_Solve(A.M,b.M)
     return h
 
 
-# In[341]:
+# In[258]:
 
 
-def formatArray(x, y):
-    resultX = [[0 for _ in range(len(x[0])+1)] for _ in range(len(x))]
-    resultY = [[0] for _ in range(len(y))]
-    for row in range(len(x)):
-        for col in range(len(x[row])):
-            resultX[row][col] = x[row][col]
-        resultX[row][len(x[row])] = 1
-        
-    for i in range(len(y)):
-        resultY[i][0] = y[i]
-    return resultX,resultY
-
-x_3d,y_3d = formatArray(X_3d,Y_3d)
-coeff = linearRegression(X_3d, Y_3d)
+x_3d = [[*row, 1] for row in X_3d]
+y_3d = [[row] for row in Y_3d]
+print(x_3d)
+coeff = linearRegression(x_3d, y_3d)
 coeff_list = [0 for _ in range(len(coeff))]
 for i in range(len(coeff)):
     coeff_list[i] = coeff[i][0]
